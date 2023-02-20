@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <div class="card" style="width: 18rem;">
-        <img src="https://www.diariodenavarra.es/uploads/2021/02/18/60ae5c9db9f42.jpeg" class="card-img-top" alt="...">
+        <img src="{{user.imageUrl}}" class="card-img-top" alt="{{user.username}} image">
         <div class="card-body">
             <h5 class="card-title">{{user.username}}</h5>
             <p class="card-text">{{user.email}}</p>
@@ -10,6 +10,7 @@
             <p class="card-text">{{user.injuries}}</p>
             <p class="card-text">Your Role is: {{user.role}}</p>
             <a href="#" class="btn btn-primary">Your Routines</a>
+            <a href="./edit-profile" class="btn btn-primary">Edit</a>
         </div>
     </div>
 
