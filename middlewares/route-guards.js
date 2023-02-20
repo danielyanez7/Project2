@@ -18,7 +18,14 @@ const isLoggedOut = (req, res, next) => {
     }
 }
 
+const checkRole = (...roles) => (req, res, next) => {
+    if (roles.includes(req.session.currentUser.role)) {
+        next()
+    }
+    else {
+        res.render('auth/login-form', { errorMessage: 'No tienes los permisos necesarios' })
+    }
+}
 
 
-
-module.exports = { isLoggedIn, isLoggedOut }
+module.exports = { isLoggedIn, isLoggedOut, checkRole }

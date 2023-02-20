@@ -12,7 +12,7 @@ require("./config")(app);
 require("./config/session.config")(app)
 
 const capitalize = require("./utils/capitalize");
-const projectName = "lab";
+const projectName = "Fitness Project";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
