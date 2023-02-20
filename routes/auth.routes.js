@@ -6,11 +6,11 @@ const User = require('../models/User.model')
 const saltRounds = 10
 
 
-router.get('/registro', isLoggedOut, (req, res) => {
+router.get('/register', isLoggedOut, (req, res) => {
     res.render('auth/signup-form')
 })
 
-router.post('/registro', (req, res, next) => {
+router.post('/register', (req, res, next) => {
     const { username, email, userPassword } = req.body
 
     bcrypt
