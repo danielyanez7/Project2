@@ -33,7 +33,11 @@ const userSchema = new Schema(
       type: String,
       enum: ['CLIENT', 'TRAINER', 'ADMIN'],
       default: 'CLIENT'
-    }
+    },
+    routines: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Routine'
+    }],
   },
   {
     timestamps: true
