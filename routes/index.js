@@ -8,4 +8,7 @@ module.exports = app => {
     const userRoutes = require("./user.routes");
     app.use("/user", userRoutes)
 
+    const trainerRoutes = require("./trainer.routes");
+    app.use("/clients", trainerRoutes)
+
 }
