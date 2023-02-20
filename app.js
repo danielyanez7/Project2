@@ -9,6 +9,7 @@ const hbs = require("hbs");
 const app = express();
 
 require("./config")(app);
+require("./config/session.config")(app)
 
 const capitalize = require("./utils/capitalize");
 const projectName = "lab";
