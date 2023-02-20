@@ -1,0 +1,21 @@
+<div class="container mt-5">
+    <div class="card" style="width: 18rem;">
+        <img src="https://www.diariodenavarra.es/uploads/2021/02/18/60ae5c9db9f42.jpeg" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{user.username}}</h5>
+            <p class="card-text">{{user.email}}</p>
+            <p class="card-text">{{user.age}}</p>
+            <p class="card-text">{{user.height}}</p>
+            <p class="card-text">{{user.weight}}</p>
+            <p class="card-text">{{user.injuries}}</p>
+            <p class="card-text">Your Role is: {{user.role}}</p>
+            <a href="#" class="btn btn-primary">Your Routines</a>
+        </div>
+    </div>
+
+    <div class="m-5">
+        <a href="/clients/:trainer_id" class="btn btn-primary">See Trainers</a>
+        <a href="/clients/create-routine/:user_id" class="btn btn-primary">Create Routine</a>
+        <a href="/clients/edit-routine/:routine_id" class="btn btn-primary">Edit Routine</a>
+    </div>
+</div>

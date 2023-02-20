@@ -5,7 +5,7 @@ module.exports = app => {
     const authRoutes = require("./auth.routes");
     app.use("/", authRoutes)
 
-    // const userRoutes = require("./user.routes");
-    // app.use("/", userRoutes)
+    const userRoutes = require("./user.routes");
+    app.use("/user", userRoutes)
 
 }

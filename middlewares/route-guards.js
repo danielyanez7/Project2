@@ -13,8 +13,8 @@ const isLoggedOut = (req, res, next) => {
         next()
     }
     else {
-        res.send('hola')
-        // res.redirect('/perfil')
+        // res.send('hola')
+        res.redirect('/user/profile')
     }
 }
 

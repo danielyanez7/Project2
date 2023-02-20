@@ -4,27 +4,18 @@ const User = require('../models/User.model')
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
 
-router.get('/students', isLoggedIn, (req, res, next) => {
+// router.get("/user/profile/:user_id", isLoggedIn, (req, res, next) => {
+//     res.render("user/profile", { user: req.session.currentUser })
+// })
+
+router.get('/profile', isLoggedIn, (req, res, next) => {
 
     User
-        .find()
-        .then(users => res.render('/', { users }))
-        .catch(err => next(err))
-
-})
-
-router.get('/perfil/:user_id', isLoggedIn, (req, res, next) => {
-
-    console.log(req.params)
-    const { user_id } = req.params
-
-        // User
-        //     .findById(user_id)
-        //     .then(user => res.render('user/student-profile', {
-        //         user,
-        //         isOwner: req.session.currentUser?._id === user_id,
-        //         isPM: req.session.currentUser?.role === "PM",
-        //     }))
+        .findById(req.session.currentUser?._id)
+        .then(user => res.render('user/profile', {
+            user,
+            isOwner: req.session.currentUser?._id === user._id,
+        }))
         .catch(err => next(err))
 
 })

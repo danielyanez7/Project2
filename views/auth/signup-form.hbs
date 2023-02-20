@@ -5,9 +5,25 @@
             <hr>
             <form action="/register" method="POST">
                 <div class="mb-3">
-                    <label for="username" class="form-label">Nombre de usuario/nick</label>
+                    <label for="username" class="form-label">Username:</label>
                     <input type="text" class="form-control" id="username" name="username">
-                    <div class="form-text">No trolling pls!</div>
+                    {{!-- <div class="form-text">No trolling pls!</div> --}}
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age">
+                </div>
+                <div class="mb-3">
+                    <label for="height" class="form-label">Height</label>
+                    <input type="text" class="form-control" id="height" name="height">
+                </div>
+                <div class="mb-3">
+                    <label for="weight" class="form-label">Weight</label>
+                    <input type="text" class="form-control" id="weight" name="weight">
+                </div>
+                <div class="mb-3">
+                    <label for="injuries" class="form-label">Injuries</label>
+                    <input type="text" class="form-control" id="injuries" name="injuries">
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Dirección de email</label>

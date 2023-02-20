@@ -11,12 +11,12 @@ router.get('/register', isLoggedOut, (req, res) => {
 })
 
 router.post('/register', (req, res, next) => {
-    const { username, email, userPassword } = req.body
+    const { username, email, userPassword, age, height, weight, injuries, role } = req.body
 
     bcrypt
         .genSalt(saltRounds)
         .then(salt => bcrypt.hash(userPassword, salt))
-        .then(passwordHash => User.create({ email, username, password: passwordHash }))
+        .then(passwordHash => User.create({ email, username, password: passwordHash, age, height, weight, injuries, role }))
         .then(() => res.redirect('/'))
         .catch(err => next(err))
 })
@@ -34,7 +34,7 @@ router.post('/login', (req, res, next) => {
     User
         .findOne({ email })
         .then(user => {
-            console.log(user)
+            // console.log(user)
             if (!user) {
                 res.render('auth/login-form', { errorMessage: 'Usuario no registrado' })
             }
@@ -44,14 +44,14 @@ router.post('/login', (req, res, next) => {
             else {
                 console.log(req.session)
                 req.session.currentUser = user                // ESTO ES INICIAR SESIÓN
-                console.log('ESTO ES EL OBJETO req.session --->', req.session)
+                // console.log('ESTO ES EL OBJETO req.session --->', req.session)
                 res.redirect('/')
             }
         })
         .catch(err => next(err))
 })
 
-router.get('/cerrar-sesion', (req, res) => {
+router.get('/logout', (req, res) => {
     req.session.destroy(() => res.redirect('/'))
 })
 module.exports = router
