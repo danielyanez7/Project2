@@ -23,24 +23,25 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 
 })
 
-router.get('/edit-profile/:user_id', isLoggedIn, (req, res, next) => {
+router.get('/edit-profile/:current_Id', isLoggedIn, (req, res, next) => {
 
+    const { current_Id } = req.params
 
     User
-        .findById(req.session.currentUser?._id)
+        .findById(current_Id)
         .then(user => res.render('user/edit-profile', user))
         .catch(err => next(err))
 })
 
-// router.post('/student-edit', isLoggedIn, (req, res, next) => {
+router.post('/edit-profile', isLoggedIn, (req, res, next) => {
 
-//     const { username, email, profileImg, description, user_id } = req.body
-//     // console.log(req.body) recuerda colocar en la vista la propiedad de id type hidden
-//     User
-//         .findByIdAndUpdate(user_id, { username, email, profileImg, description })
-//         .then(user => res.redirect(`/students/${user_id}`))
-//         .catch(err => next(err))
-// })
+    const { username, age, height, weight, injuries, imageUrl, current_Id } = req.body
+    // console.log(req.body) recuerda colocar en la vista la propiedad de id type hidden
+    User
+        .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
+        .then(user => res.redirect('/'))
+        .catch(err => next(err))
+})
 
 // router.post('/delete/:user_id', isLoggedIn, checkRole('PM'), (req, res, next) => {
 
