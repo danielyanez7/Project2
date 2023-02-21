@@ -1,18 +1,18 @@
-{{!-- {{#each }} --}}
 <div class="row row-cols-4 mt-5">
-    <div class="col">
+    {{#each clients }}
+    <div class="col mt-5">
         <div class="card h-100">
-            <img src="https://thumbs.dreamstime.com/b/cliente-molesto-1114328.jpg" class="card-img-top" alt="...">
+            <img src="{{imageUrl}}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">name</h5>
+                <h5 class="card-title">{{username}}</h5>
             </div>
             {{!-- AQUI!!! :User_id--}}
             {{!-- ↓ --}}
             <a href="/clients/create-routine" class="btn btn-primary">Create Routine</a>
         </div>
     </div>
+    {{/each}}
 </div>
-{{!-- {{/each}} --}}
 
 
 
