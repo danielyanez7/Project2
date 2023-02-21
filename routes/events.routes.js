@@ -5,16 +5,21 @@ const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 
-router.get('/event-list', isLoggedIn, (req, res, next) => {
+router.get('/create-event', isLoggedIn, (req, res, next) => {
 
-    // User
-    //     .findById(req.session.currentUser?._id)
-    //     .then(user => res.render('user/event-list', {
-    //         user,
-    //         isOwner: req.session.currentUser?._id === user._id,
-    //     }))
-    //     .catch(err => next(err))
+    User
+        .findById(req.session.currentUser?._id)
+        .then(event => res.render('user/create-event', {
+            event,
+            isTrainer: req.session.currentUser?.role === "TRAINER",
+            isAdmin: req.session.currentUser?.role === "ADMIN",
+        }))
+        .catch(err => next(err))
 })
+
+
+
+
 
 
 module.exports = router
