@@ -28,7 +28,7 @@ router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) =>
 
     User
         .findById(trainer_id)
-        .then(({ clients }) => res.send({ clients }))
+        .then(({ clients }) => res.render('user/clients-list', { clients }))
         .catch(err => next(err))
 })
 

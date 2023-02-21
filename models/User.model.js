@@ -45,6 +45,10 @@ const userSchema = new Schema(
     clients: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
+    }],
+    applications: [{
+      type: Schema.Types.ObjectId,
+      ref: 'User'
     }]
   },
   {
