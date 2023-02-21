@@ -36,10 +36,10 @@ router.get('/edit-profile/:current_Id', isLoggedIn, (req, res, next) => {
 router.post('/edit-profile', isLoggedIn, (req, res, next) => {
 
     const { username, age, height, weight, injuries, imageUrl, current_Id } = req.body
-    // console.log(req.body) recuerda colocar en la vista la propiedad de id type hidden
+    console.log(username, age, height, weight, injuries, imageUrl, current_Id)
     User
         .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
-        .then(user => res.redirect('/'))
+        .then(user => res.redirect('/user/profile'))
         .catch(err => next(err))
 })
 
