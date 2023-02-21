@@ -14,16 +14,19 @@
         </div>
     </div>
 
-    <div class="m-5">
-        <a href="/clients/{{user.id}}" class="btn btn-primary">See Trainers</a>
+
+    {{#if user.isTrainer}}
+
+    <a href="/clients/{{user.id}}" class="btn btn-primary">See clients</a>
+
+    {{/if}}
+
+    {{#if user.isClient}}
+
+    <a href="/user/trainer-list" class="btn btn-primary">See trainers</a>
+
+    {{/if}}
 
 
-        {{!-- AQUI!!! :User_id --}}
-        {{!-- ↓ --}}
-        <a href="/clients/create-routine" class="btn btn-primary">Create Routine</a>
 
-        {{!-- AQUI!!! :Routine_id --}}
-        {{!-- ↓ --}}
-        <a href="/clients/edit-routine/:routine_id" class="btn btn-primary">Edit Routine</a>
-    </div>
 </div>

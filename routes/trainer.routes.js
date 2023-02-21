@@ -15,7 +15,7 @@ router.get('/create-routine', (req, res, next) => {
 
 
 // router.post('/create-routine', (req, res, next) => {
-res.send('esta mierda funciona')
+// res.send('esta mierda funciona')
 // })
 
 
