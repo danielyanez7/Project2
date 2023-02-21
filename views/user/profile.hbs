@@ -9,8 +9,8 @@
             <p class="card-text">{{user.weight}}</p>
             <p class="card-text">{{user.injuries}}</p>
             <p class="card-text">Your Role is: {{user.role}}</p>
-            <a href="#" class="btn btn-primary">Your Routines</a>
-            <form action="/user/edit-profile/{{user.id}}"><button type="submit">Edit</button></form>
+            <form action="/user/edit-profile/{{user.id}}"><button type="submit"
+                    class="btn btn-warning btn m-3">Edit</button></form>
 
             <form action="/user/delete/{{user.id}}" method="POST">
                 <input type="submit" value="Delete" class="btn btn-danger btn m-3">
@@ -37,7 +37,7 @@
 
     {{#if isClient}}
 
-    <a href="/clients/{{user.id}}" class="btn btn-primary">See my routines</a>
+    <a href="/user/routine-list/{{user.id}}" class="btn btn-primary">See my routines</a>
 
     {{/if}}
 
