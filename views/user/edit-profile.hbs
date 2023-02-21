@@ -1,1 +1,38 @@
-<h1>hola</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1>Registro</h1>
+            <hr>
+            <form action="/user/edit-profile" method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{username}}">
+                </div>
+                <div class="mb-3">
+                    <label for="age" class="form-label">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" value="{{age}}">
+                </div>
+                <div class="mb-3">
+                    <label for="height" class="form-label">Height</label>
+                    <input type="text" class="form-control" id="height" name="height" value="{{height}}">
+                </div>
+                <div class="mb-3">
+                    <label for="weight" class="form-label">Weight</label>
+                    <input type="text" class="form-control" id="weight" name="weight" value="{{weight}}">
+                </div>
+                <div class="mb-3">
+                    <label for="injuries" class="form-label">Injuries</label>
+                    <input type="text" class="form-control" id="injuries" name="injuries" value="{{injuries}}">
+                </div>
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Profile Image</label>
+                    <input type="file" class="form-control" id="imageUrl" name="imageUrl" value="{{imageUrl}}">
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-dark">Edit</button>
+                </div>
+                <input type="hidden" value="{{id}}" name="current_Id">
+            </form>
+        </div>
+    </div>
+</div>
