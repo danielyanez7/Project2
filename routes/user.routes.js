@@ -33,16 +33,34 @@ router.get('/edit-profile/:current_Id', isLoggedIn, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.post('/edit-profile', isLoggedIn, (req, res, next) => {
+router.post('/edit-profile', isLoggedIn, uploaderMiddleware.single('imageUrl'), (req, res, next) => {
 
-    const { username, age, height, weight, injuries, imageUrl, current_Id } = req.body
-    console.log(username, age, height, weight, injuries, imageUrl, current_Id)
+    const { username, age, height, weight, injuries, current_Id } = req.body
+
+    let updatedImg = ""
+
+    if (req.file) {
+        const { path: imageUrl } = req.file
+        updatedImg = imageUrl
+    } else {
+        updatedImg = undefined
+    }
+
     User
-        .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
+        .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl: updatedImg })
         .then(user => res.redirect('/user/profile'))
         .catch(err => next(err))
 })
 
+router.get('/trainer-list', isLoggedIn, (req, res, next) => {
+
+    User
+        .find({ role: 'TRAINER' })
+        .then(trainers => res.render('user/trainer-list', { trainers }))
+        .catch(err => next(err))
+
+
+})
 // router.post('/delete/:user_id', isLoggedIn, checkRole('PM'), (req, res, next) => {
 
 //     // console.log(req.params)
