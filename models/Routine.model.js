@@ -6,10 +6,11 @@ const routineSchema = new Schema(
             type: String,
         },
         exercises: [{
-            name: String,
+            exerciseName: String,
             description: String,
             category: String,
             equipment: [String],
+            repetitions: String
 
         }],
         time: {
@@ -18,10 +19,7 @@ const routineSchema = new Schema(
         owner: [{
             type: Schema.Types.ObjectId,
             ref: 'User'
-        }],
-        repetitionUnit: {
-            type: String,
-        }
+        }]
     },
     {
         timestamps: true

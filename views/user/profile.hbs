@@ -26,6 +26,12 @@
     <a href="/clients/{{user.id}}" class="btn btn-primary">See clients</a>
     <a href="/clients/applications/{{user.id}}">Applications</a>
 
+    <ul>
+        {{#each applications}}
+        <li>{{username}}</li>
+        {{/each}}
+    </ul>
+
 
     {{/if}}
 

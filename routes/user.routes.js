@@ -10,7 +10,6 @@ const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 router.get('/profile', isLoggedIn, (req, res, next) => {
 
-
     User
         .findById(req.session.currentUser?._id)
         .then(user => res.render('user/profile', {
@@ -18,7 +17,8 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
             isOwner: req.session.currentUser?._id === user._id,
             isTrainer: req.session.currentUser?.role === "TRAINER",
             isClient: req.session.currentUser?.role === "CLIENT"
-        }))
+        })
+        )
         .catch(err => next(err))
 
 })

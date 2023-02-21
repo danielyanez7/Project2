@@ -14,7 +14,7 @@
 | GET         | /user/routine-list/:user_id                  | Da acceso a la lista de rutinas         |      |
 | GET         | /user/trainer-list                          x| Da acceso a lista de entrenadores       |      |
 | GET         | /clients/:trainer_id                        x| lista de clientes del entrenador        |      |
-| GET         | /clients/applications/:user.id               | el trainer ve las peticiones de clientes|      |
+| GET         | /clients/applications/:trainer_id            | el trainer ve las peticiones de clientes|      |
 | GET         | /clients/create-routine/:user_id             | Renderiza formulario de crear           |      |
 | POST        | /clients/create-routine/:user_id             | Crea la rutina en el perfil del usuario |      |
 | GET         | /clients/edit-routine/:routine_id            | Renderiza el formulario para editar     |      |
