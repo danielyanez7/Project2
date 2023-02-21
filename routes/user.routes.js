@@ -72,6 +72,10 @@ router.post('/delete/:current_Id', isLoggedIn, (req, res, next) => {
         .catch(err => next(err))
 })
 
+router.get('/routine-list', isLoggedIn, (req, res, next) => {
 
+    res.render('user/routine-list')
+
+})
 
 module.exports = router
