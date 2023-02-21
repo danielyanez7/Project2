@@ -1,0 +1,19 @@
+<div class="row">
+    {{#each events}}
+    <div class="card m-3" style="width: 18rem;">
+        <img src="{{imageUrl}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{eventname}}</h5>
+            <p class="card-text">Description: {{description}}</p>
+            <p class="card-text">Date: {{date}}</p>
+            <p class="card-text">Max participants: {{participants}}</p>
+            <input type="hidden" value="{{id}}" name="event_id">
+            <a href="#" class="btn btn-primary">Apuntate</a>
+
+            <form action="/events/edit-event"><button type="submit" class="btn btn-warning btn m-3">Edit</button>
+            </form>
+
+        </div>
+    </div>
+    {{/each}}
+</div>

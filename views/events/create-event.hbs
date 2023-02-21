@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <h1>New Event</h1>
             <hr>
-            <form action="/create-event" method="POST" enctype="multipart/form-data">
+            <form action="/events/create-event" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="eventname" class="form-label">Event Name</label>
                     <input type="text" class="form-control" id="eventname" name="eventname">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">Date</label>
-                    <input type="text" class="form-control" id="date" name="date">
+                    <input type="date" placeholder="dd-mm-yyyy" min="1900-01-01" max="2030-12-31" id="date" name="date">
                 </div>
                 <div class="mb-3">
                     <label for="participants" class="form-label">Participants</label>
