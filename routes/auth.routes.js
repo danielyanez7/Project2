@@ -13,16 +13,19 @@ router.get('/register', isLoggedOut, (req, res) => {
 
 router.post('/register', uploaderMiddleware.single('imageUrl'), (req, res, next) => {
     const { username, email, userPassword, age, height, weight, injuries, role } = req.body
+    let updatedImg = ""
+
     if (req.file) {
         const { path: imageUrl } = req.file
+        updatedImg = imageUrl
     } else {
-        imageUrl = undefined
+        updatedImg = undefined
     }
 
     bcrypt
         .genSalt(saltRounds)
         .then(salt => bcrypt.hash(userPassword, salt))
-        .then(passwordHash => User.create({ email, username, password: passwordHash, age, height, weight, injuries, role, imageUrl }))
+        .then(passwordHash => User.create({ email, username, password: passwordHash, age, height, weight, injuries, role, imageUrl: updatedImg }))
         .then(() => res.redirect('/'))
         .catch(err => next(err))
 })
