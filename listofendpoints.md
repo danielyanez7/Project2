@@ -6,7 +6,6 @@
 | GET         | /login                                      x| muestra el formulario                   |      |
 | POST        | /login                                      x| Da acceso a la sesion registrada        |      |
 | GET         | /user/profile/:user_id                      x| profile del usuario                     |      |
-| GET         | /user/request-personaltraining/:trainer_id   | Solicitar rutina personalizada          |      |
 | POST        | /user/request-personaltraining/:trainer_id   | Envia los datos de la solicitud         |      |
 | GET         | /user/edit-profile/:user_id                 x| Renderiza el formulario a editar        |      |
 | POST        | /user/edit-profile/:user_id                 x| Actualiza los nuevos datos editados     |      |

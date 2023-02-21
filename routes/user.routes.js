@@ -11,6 +11,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
 
     User
         .findById(req.session.currentUser?._id)
+        .populate('applications')
         .then(user => res.render('user/profile', {
             user,
             isOwner: req.session.currentUser?._id === user._id,
@@ -81,5 +82,15 @@ router.get('/routine-list/:current_Id', isLoggedIn, (req, res, next) => {
         .catch(err => next(err))
 })
 
+
+router.post('/request-personaltraining/:trainer_id', (req, res, next) => {
+    const { trainer_id } = req.params
+    const currentUser = req.session.currentUser?._id
+
+    User
+        .findByIdAndUpdate(trainer_id, { $addToSet: { applications: currentUser } }, { new: true })
+        .then(() => res.redirect('/'))
+        .catch(err => next(err))
+})
 
 module.exports = router

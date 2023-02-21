@@ -6,7 +6,9 @@
             <div class="card-body">
                 <h5 class="card-title">{{username}}</h5>
             </div>
-            <a href="/user/request-personaltraining/:trainer_id" class="btn btn-primary">Train with me</a>
+            <form action="/user/request-personaltraining/{{id}}" method="POST">
+                <button type="submit" class="btn btn-primary">Train with me</button>
+            </form>
         </div>
     </div>
     {{/each}}
