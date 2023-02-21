@@ -11,7 +11,10 @@
             <p class="card-text">Your Role is: {{user.role}}</p>
             <a href="#" class="btn btn-primary">Your Routines</a>
             <form action="/user/edit-profile/{{user.id}}"><button type="submit">Edit</button></form>
-            <form action=""><a href="/delete" class="btn btn-primary">Delete</a></form>
+
+            <form action="/user/delete/{{user.id}}" method="POST">
+                <input type="submit" value="Delete" class="btn btn-danger btn m-3">
+            </form>
 
             <input type="hidden" value="{{id}}" name="current_Id">
         </div>

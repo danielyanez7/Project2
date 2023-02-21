@@ -61,16 +61,16 @@ router.get('/trainer-list', isLoggedIn, (req, res, next) => {
 
 
 })
-// router.post('/delete/:user_id', isLoggedIn, checkRole('PM'), (req, res, next) => {
 
-//     // console.log(req.params)
-//     const { user_id } = req.params
+router.post('/delete/:current_Id', isLoggedIn, (req, res, next) => {
 
-//     User
-//         .findByIdAndDelete(user_id)
-//         .then(() => res.redirect('/students'))
-//         .catch(err => next(err))
-// })
+    const { current_Id } = req.params
+
+    User
+        .findByIdAndDelete(current_Id)
+        .then(() => req.session.destroy(() => res.redirect('/')))
+        .catch(err => next(err))
+})
 
 
 
