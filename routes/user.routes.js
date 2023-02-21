@@ -4,9 +4,8 @@ const User = require('../models/User.model')
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
-// router.get("/user/profile/:user_id", isLoggedIn, (req, res, next) => {
-//     res.render("user/profile", { user: req.session.currentUser })
-// })
+// const ApiService = require('../services/exercises.service')
+// const ExercisesApi = new ApiService()
 
 router.get('/profile', isLoggedIn, (req, res, next) => {
 
@@ -72,10 +71,15 @@ router.post('/delete/:current_Id', isLoggedIn, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.get('/routine-list', isLoggedIn, (req, res, next) => {
+router.get('/routine-list/:current_Id', isLoggedIn, (req, res, next) => {
 
-    res.render('user/routine-list')
+    const { current_Id } = req.params
 
+    User
+        .findById(current_Id)
+        .then(() => res.render('user/routine-list'))
+        .catch(err => next(err))
 })
+
 
 module.exports = router

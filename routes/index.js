@@ -11,4 +11,7 @@ module.exports = app => {
     const trainerRoutes = require("./trainer.routes");
     app.use("/clients", trainerRoutes)
 
+    const eventRoutes = require("./events.routes");
+    app.use("/user", eventRoutes)
+
 }
