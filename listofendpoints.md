@@ -6,12 +6,13 @@
 | GET         | /login                                      x| muestra el formulario                   |      |
 | POST        | /login                                      x| Da acceso a la sesion registrada        |      |
 | GET         | /user/profile/:user_id                      x| profile del usuario                     |      |
-| POST        | /user/request-personaltraining/:trainer_id   | Envia los datos de la solicitud         |      |
+| POST        | /user/request-personaltraining/:trainer_id  x| Envia los datos de la solicitud         |      |
 | GET         | /user/edit-profile/:user_id                 x| Renderiza el formulario a editar        |      |
 | POST        | /user/edit-profile/:user_id                 x| Actualiza los nuevos datos editados     |      |
 | POST        | /user/delete-profile/:user_id               x| Elimina el usuario                      |      |
 | GET         | /user/routine-list/:user_id                  | Da acceso a la lista de rutinas         |      |
 | GET         | /user/trainer-list                          x| Da acceso a lista de entrenadores       |      |
+| POST        | /clients/accept-client/:trainer_id           | Envia los datos de la solicitud         |      |
 | GET         | /clients/:trainer_id                        x| lista de clientes del entrenador        |      |
 | GET         | /clients/applications/:trainer_id            | el trainer ve las peticiones de clientes|      |
 | GET         | /clients/create-routine/:user_id             | Renderiza formulario de crear           |      |

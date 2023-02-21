@@ -30,7 +30,12 @@
 
     <ul>
         {{#each user.applications}}
-        <li>{{username}}</li>
+        <li>
+            {{username}}
+            <form action="/clients/accept-client/{{id}}" method="POST">
+                <button type="submit">Accept</button>
+            </form>
+        </li>
         {{/each}}
     </ul>
 

@@ -14,7 +14,6 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
         .populate('applications')
         .then(user => res.render('user/profile', {
             user,
-            isOwner: req.session.currentUser?._id === user._id,
             isTrainer: req.session.currentUser?.role === "TRAINER",
             isClient: req.session.currentUser?.role === "CLIENT"
         })
@@ -56,7 +55,10 @@ router.get('/trainer-list', isLoggedIn, (req, res, next) => {
 
     User
         .find({ role: 'TRAINER' })
-        .then(trainers => res.render('user/trainer-list', { trainers }))
+        .then(trainers => res.render('user/trainer-list', {
+            trainers,
+            isClient: req.session.currentUser?.role === "CLIENT"
+        }))
         .catch(err => next(err))
 
 

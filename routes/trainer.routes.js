@@ -6,9 +6,7 @@ const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
 
 //vista de crear rutina
-router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
-    res.send('aqui viene el formulario de crear rutina')
-})
+router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => res.render('user/create-routine'))
 
 
 //crea la rutina en la colecion
@@ -42,7 +40,29 @@ router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) =>
 })
 
 
+router.post('/accept-client/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+    const { user_id } = req.params
+    const currentUser = req.session.currentUser?._id
 
 
+    // const promises = [
+    //     User.findByIdAndUpdate(currentUser, { $addToSet: { clients: user_id } }, { new: true }),
+    //     User.findByIdAndUpdate(currentUser, { $pull: { applications: user_id } }, { new: true })
+    // ]
+
+    // Promise
+    //     .all(promises)
+    //     .then(() => res.redirect(`/clients/${currentUser}`))
+    //     .catch(err => next(err))
+
+
+
+
+
+    User
+        .findByIdAndUpdate(currentUser, { $addToSet: { clients: user_id }, $pull: { applications: user_id } }, { new: true })
+        .then(() => res.redirect(`/clients/${currentUser}`))
+        .catch(err => next(err))
+})
 
 module.exports = router

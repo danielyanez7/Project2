@@ -6,10 +6,13 @@
             <div class="card-body">
                 <h5 class="card-title">{{username}}</h5>
             </div>
+            {{#if ../isClient}}
             <form action="/user/request-personaltraining/{{id}}" method="POST">
                 <button type="submit" class="btn btn-primary">Train with me</button>
             </form>
+            {{/if}}
         </div>
+
     </div>
     {{/each}}
 </div>
