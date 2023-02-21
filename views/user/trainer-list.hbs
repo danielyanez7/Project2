@@ -1,1 +1,15 @@
-<h1>esta es la lista de entrenadores</h1>
+{{#each trainers}}
+<div class="row row-cols-4 mt-5">
+    <div class="col">
+        <div class="card h-100">
+            <img src="https://thumbs.dreamstime.com/b/cliente-molesto-1114328.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">name</h5>
+            </div>
+            {{!-- AQUI!!! :trainer_id--}}
+            {{!-- ↓ --}}
+            <a href="/user/request-personaltraining" class="btn btn-primary">Application</a>
+        </div>
+    </div>
+</div>
+{{/each}}
