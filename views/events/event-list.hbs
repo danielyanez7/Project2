@@ -10,8 +10,14 @@
             <input type="hidden" value="{{id}}" name="event_id">
             <a href="#" class="btn btn-primary">Apuntate</a>
 
-            <form action="/events/edit-event"><button type="submit" class="btn btn-warning btn m-3">Edit</button>
+            <form action="/events/edit-event/{{id}}">
+                <button type="submit" class="btn btn-warning btn m-3">Edit</button>
             </form>
+
+            <form action="/events/delete/{{id}}" method="POST">
+                <input type="submit" value="Delete" class="btn btn-danger btn m-3">
+            </form>
+
 
         </div>
     </div>
