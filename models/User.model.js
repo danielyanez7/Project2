@@ -49,7 +49,8 @@ const userSchema = new Schema(
     applications: [{
       type: Schema.Types.ObjectId,
       ref: 'User'
-    }]
+    }],
+    workdays: [String]
   },
   {
     timestamps: true
