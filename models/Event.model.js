@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose")
 
 const eventSchema = new Schema(
     {
@@ -36,10 +36,10 @@ const eventSchema = new Schema(
     {
         timestamps: true
     }
-);
+)
 
 eventSchema.index({ location: '2dsphere' })
 
-const Event = model("Event", eventSchema);
+const Event = model("Event", eventSchema)
 
-module.exports = Event;
+module.exports = Event

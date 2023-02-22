@@ -4,12 +4,12 @@ class ApiService {
 
     constructor() {
         this.api = axios.create({
-            baseURL: 'https://wger.de/api/v2/'
+            baseURL: 'https://wger.de/api/v2'
         })
     }
 
     getAllExercises() {
-        return this.api.get('/exercise')
+        return this.api.get('/exercise/?language=4')
     }
 
 }

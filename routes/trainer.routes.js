@@ -1,32 +1,24 @@
 const router = require('express').Router()
 const User = require('../models/User.model')
 const Routine = require('../models/Routine.model')
+const ApiServices = require('../services/exercises.service')
+const exerciseapi = new ApiServices()
 
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
 
 router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
-    res.render('user/create-routine')
-})
-
-
-router.post('/create-routine', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
-
-    const { routinename, exercisename, description, repetitions, category, equipment, user_id, time } = req.body
-
-    const exercises = {
-        exercisename,
-        description,
-        category,
-        equipment,
-        repetitions
-    }
-
-    User
-        .findById(user_id)
-        .then(owner => Routine.create({ routinename, exercises, time, owner }))
+    exerciseapi
+        .getAllExercises()
+        .then(({ data }) => res.render('user/create-routine', { exercises: data.results }))
         .catch(err => next(err))
+
 })
+
+
+// router.post('/create-routine', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
+// })
 
 
 router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
