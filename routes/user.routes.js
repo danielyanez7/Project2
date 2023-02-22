@@ -16,8 +16,7 @@ router.get('/profile', isLoggedIn, (req, res, next) => {
             user,
             isTrainer: req.session.currentUser?.role === "TRAINER",
             isClient: req.session.currentUser?.role === "CLIENT"
-        })
-        )
+        }))
         .catch(err => next(err))
 
 })
@@ -55,13 +54,13 @@ router.get('/trainer-list', isLoggedIn, (req, res, next) => {
 
     User
         .find({ role: 'TRAINER' })
+        // proyectar
+        // sort
         .then(trainers => res.render('user/trainer-list', {
             trainers,
             isClient: req.session.currentUser?.role === "CLIENT"
         }))
         .catch(err => next(err))
-
-
 })
 
 router.post('/delete/:current_Id', isLoggedIn, (req, res, next) => {
@@ -86,11 +85,12 @@ router.get('/routine-list/:current_Id', isLoggedIn, (req, res, next) => {
 
 
 router.post('/request-personaltraining/:trainer_id', (req, res, next) => {
+
     const { trainer_id } = req.params
-    const currentUser = req.session.currentUser?._id
+    const applications = req.session.currentUser?._id
 
     User
-        .findByIdAndUpdate(trainer_id, { $addToSet: { applications: currentUser } }, { new: true })
+        .findByIdAndUpdate(trainer_id, { $addToSet: { applications } })
         .then(() => res.redirect('/'))
         .catch(err => next(err))
 })

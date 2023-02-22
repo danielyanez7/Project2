@@ -1,17 +1,16 @@
 module.exports = app => {
-    const indexRoutes = require("./index.routes");
-    app.use("/", indexRoutes);
+    const indexRoutes = require("./index.routes")
+    app.use("/", indexRoutes)
 
-    const authRoutes = require("./auth.routes");
+    const authRoutes = require("./auth.routes")
     app.use("/", authRoutes)
 
-    const userRoutes = require("./user.routes");
+    const userRoutes = require("./user.routes")
     app.use("/user", userRoutes)
 
-    const trainerRoutes = require("./trainer.routes");
+    const trainerRoutes = require("./trainer.routes")
     app.use("/clients", trainerRoutes)
 
-    const eventRoutes = require("./events.routes");
+    const eventRoutes = require("./events.routes")
     app.use("/events", eventRoutes)
-
 }

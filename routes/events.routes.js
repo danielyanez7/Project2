@@ -11,6 +11,7 @@ router.get('/create-event', isLoggedIn, (req, res, next) => {
 })
 
 router.post('/create-event', isLoggedIn, uploaderMiddleware.single('imageUrl'), (req, res, next) => {
+
     const { eventname, description, date, participants } = req.body
 
     let updatedImg = ""
@@ -24,10 +25,8 @@ router.post('/create-event', isLoggedIn, uploaderMiddleware.single('imageUrl'), 
 
     Event
         .create({ eventname, description, date, participants, imageUrl: updatedImg })
-        .then(user => res.redirect('/events/create-event'))
+        .then(() => res.redirect('/events/create-event'))
         .catch(err => next(err))
-
-
 })
 
 router.get('/event-list', isLoggedIn, (req, res, next) => {

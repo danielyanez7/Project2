@@ -5,12 +5,13 @@ const Routine = require('../models/Routine.model')
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
 
-//vista de crear rutina
-router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => res.render('user/create-routine'))
+router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+    res.render('user/create-routine')
+})
 
 
-//crea la rutina en la colecion
 router.post('/create-routine', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
     const { routinename, exercisename, description, repetitions, category, equipment, user_id, time } = req.body
 
     const exercises = {
@@ -28,8 +29,8 @@ router.post('/create-routine', isLoggedIn, checkRole('TRAINER'), (req, res, next
 })
 
 
-//esta es la lista de clientes del entrenador
 router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
     const { trainer_id } = req.params
 
     User
@@ -41,26 +42,12 @@ router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) =>
 
 
 router.post('/accept-client/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
     const { user_id } = req.params
     const currentUser = req.session.currentUser?._id
 
-
-    // const promises = [
-    //     User.findByIdAndUpdate(currentUser, { $addToSet: { clients: user_id } }, { new: true }),
-    //     User.findByIdAndUpdate(currentUser, { $pull: { applications: user_id } }, { new: true })
-    // ]
-
-    // Promise
-    //     .all(promises)
-    //     .then(() => res.redirect(`/clients/${currentUser}`))
-    //     .catch(err => next(err))
-
-
-
-
-
     User
-        .findByIdAndUpdate(currentUser, { $addToSet: { clients: user_id }, $pull: { applications: user_id } }, { new: true })
+        .findByIdAndUpdate(currentUser, { $addToSet: { clients: user_id }, $pull: { applications: user_id } })
         .then(() => res.redirect(`/clients/${currentUser}`))
         .catch(err => next(err))
 })

@@ -1,25 +1,16 @@
-require("dotenv").config();
+require("dotenv").config()
 
-require("./db");
+require("./db")
 
-const express = require("express");
-
-const hbs = require("hbs");
-
-const app = express();
+const express = require("express")
+const app = express()
 
 require("./config")(app);
 require("./config/session.config")(app)
 
-const capitalize = require("./utils/capitalize");
-const projectName = "Fitness Project";
-
-app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
-
-// 👇 Start handling routes here
-
+app.locals.appTitle = `whatever`
 
 require('./routes')(app)
 
-require("./error-handling")(app);
-module.exports = app;
+require("./error-handling")(app)
+module.exports = app
