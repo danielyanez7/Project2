@@ -47,8 +47,8 @@ router.get('/trainer-list', isLoggedIn, (req, res, next) => {
 
     User
         .find({ role: 'TRAINER' })
-        // proyectar
-        // sort
+        .select({ username: 1, imageUrl: 1, description: 1 })
+        .sort({ eventname: 1 })
         .then(trainers => res.render('user/trainer-list', {
             trainers,
             isClient: req.session.currentUser?.role === "CLIENT"
