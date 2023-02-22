@@ -6,7 +6,6 @@ const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 
 router.get('/create-event', isLoggedIn, (req, res, next) => {
-
     res.render('events/create-event')
 })
 
@@ -14,18 +13,11 @@ router.post('/create-event', isLoggedIn, uploaderMiddleware.single('imageUrl'), 
 
     const { eventname, description, date, participants } = req.body
 
-    let updatedImg = ""
-
-    if (req.file) {
-        const { path: imageUrl } = req.file
-        updatedImg = imageUrl
-    } else {
-        updatedImg = undefined
-    }
+    const imageUrl = req.file?.path
 
     Event
-        .create({ eventname, description, date, participants, imageUrl: updatedImg })
-        .then(() => res.redirect('/events/create-event'))
+        .create({ eventname, description, date, participants, imageUrl })
+        .then(() => res.redirect('/events/event-list'))
         .catch(err => next(err))
 })
 
@@ -33,6 +25,8 @@ router.get('/event-list', isLoggedIn, (req, res, next) => {
 
     Event
         .find()
+        .select({ eventname: 1, imageUrl: 1, description: 1, date: 1, participants: 1 })
+        .sort({ eventname: 1 })
         .then(events => res.render('events/event-list', { events }))
         .catch(err => next(err))
 
@@ -42,30 +36,33 @@ router.get('/edit-event/:event_id', isLoggedIn, (req, res, next) => {
 
     const { event_id } = req.params
 
-    User
+    Event
         .findById(event_id)
-        .then(user => res.render('events/edit-event', user))
+        .then(event => res.render('events/edit-event', event))
         .catch(err => next(err))
 })
 
-// router.post('/edit-event', isLoggedIn, uploaderMiddleware.single('imageUrl'), (req, res, next) => {
+router.post('/edit-event/:event_id', isLoggedIn, uploaderMiddleware.single('imageUrl'), (req, res, next) => {
 
-//     const { eventname, description, date, participants, event_id } = req.body
+    const { eventname, description, date, participants, event_id } = req.body
 
-//     let updatedImg = ""
+    const imageUrl = req.file?.path
 
-//     if (req.file) {
-//         const { path: imageUrl } = req.file
-//         updatedImg = imageUrl
-//     } else {
-//         updatedImg = undefined
-//     }
+    Event
+        .findByIdAndUpdate(event_id, { eventname, description, date, participants, imageUrl })
+        .then(() => res.redirect('/events/event-list'))
+        .catch(err => next(err))
+})
 
-//     Event
-//         .findByIdAndUpdate(event_id, { eventname, description, date, participants, imageUrl: updatedImg })
-//         .then(user => res.redirect('/events/event-list'))
-//         .catch(err => next(err))
-// })
+router.post('/delete/:event_id', isLoggedIn, (req, res, next) => {
+
+    const { event_id } = req.params
+
+    Event
+        .findByIdAndDelete(event_id)
+        .then(() => res.redirect('/events/event-list'))
+        .catch(err => next(err))
+})
 
 
 

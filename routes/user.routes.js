@@ -35,17 +35,10 @@ router.post('/edit-profile', isLoggedIn, uploaderMiddleware.single('imageUrl'), 
 
     const { username, age, height, weight, injuries, current_Id } = req.body
 
-    let updatedImg = ""
-
-    if (req.file) {
-        const { path: imageUrl } = req.file
-        updatedImg = imageUrl
-    } else {
-        updatedImg = undefined
-    }
+    const imageUrl = req.file?.path
 
     User
-        .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl: updatedImg })
+        .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
         .then(user => res.redirect('/user/profile'))
         .catch(err => next(err))
 })
