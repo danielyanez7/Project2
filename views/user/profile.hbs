@@ -1,50 +1,48 @@
 <div class="container mt-5">
-    <div class="card" style="width: 18rem;">
-        <img src="{{user.imageUrl}}" class="card-img-top" alt="{{user.username}} image">
-        <div class="card-body">
-            <h5 class="card-title">{{user.username}}</h5>
-            <p class="card-text">{{user.email}}</p>
-            <p class="card-text">{{user.age}}</p>
-            <p class="card-text">{{user.height}}</p>
-            <p class="card-text">{{user.weight}}</p>
-            <p class="card-text">{{user.injuries}}</p>
-            <p class="card-text">Your Role is: {{user.role}}</p>
-            <form action="/user/edit-profile/{{user.id}}"><button type="submit"
-                    class="btn btn-warning btn m-3">Edit</button></form>
-
-            <form action="/user/delete/{{user.id}}" method="POST">
-                <input type="submit" value="Delete" class="btn btn-danger btn m-3">
-            </form>
-
-            <input type="hidden" value="{{id}}" name="current_Id">
+    <div class="row justify-content-center">
+        <div class="col-sm-6 col-md-4">
+            <div class="card card-custom card-gray">
+                <img src="{{user.imageUrl}}" class="card-img-top rounded-circle" alt="{{user.username}} image"
+                    style="object-fit: contain; width: 100%; height: 200px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.username}}</h5>
+                    <p class="card-text">{{user.email}}</p>
+                    <p class="card-text">{{user.age}}</p>
+                    <p class="card-text">{{user.height}}</p>
+                    <p class="card-text">{{user.weight}}</p>
+                    <p class="card-text">{{user.injuries}}</p>
+                    <p class="card-text">Your Role is: {{user.role}}</p>
+                    <div class="d-flex justify-content-between">
+                        <form action="/user/edit-profile/{{user.id}}">
+                            <button type="submit" class="btn btn-warning">Edit</button>
+                        </form>
+                        <form action="/user/delete/{{user.id}}" method="POST">
+                            <input type="submit" value="Delete" class="btn btn-danger">
+                        </form>
+                    </div>
+                </div>
+                {{#if isTrainer}}
+                <div class="card-footer">
+                    <a href="/clients/{{user.id}}" class="btn btn-success">See clients</a>
+                    <a href="/events/create-event" class="btn btn-success">Create New Event</a>
+                    <ul class="list-unstyled mt-3">
+                        {{#each user.applications}}
+                        <li class="d-flex justify-content-between">
+                            {{username}}
+                            <form action="/clients/accept-client/{{id}}" method="POST">
+                                <button type="submit" class="btn btn-primary">Accept</button>
+                            </form>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+                {{#if isClient}}
+                <div class="card-footer">
+                    <a href="/user/routine-list/{{user.id}}" class="btn btn-primary">See my routines</a>
+                </div>
+                {{/if}}
+            </div>
         </div>
     </div>
-
-
-    {{#if isTrainer}}
-
-    <a href="/clients/{{user.id}}" class="btn btn-success">See clients</a>
-    <a href="/events/create-event" class="btn btn-success">Create New Event</a>
-
-
-    <ul>
-        {{#each user.applications}}
-        <li>
-            {{username}}
-            <form action="/clients/accept-client/{{id}}" method="POST">
-                <button type="submit">Accept</button>
-            </form>
-        </li>
-        {{/each}}
-    </ul>
-
-
-    {{/if}}
-
-    {{#if isClient}}
-
-    <a href="/user/routine-list/{{user.id}}" class="btn btn-primary">See my routines</a>
-
-    {{/if}}
-
 </div>
