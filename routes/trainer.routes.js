@@ -8,12 +8,16 @@ const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
 
 router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
+    const { user_id } = req.params
+
     exerciseapi
         .getAllExercises()
         .then(({ data }) => {
-            const languageCode = 'es'
-            const exercises = data.results.filter(exercise => exercise.language.short_name === languageCode)
-            res.render('user/create-routine', { exercises })
+            const exercises = data.results.map(elem => {
+                return { exerciseName: elem.name, exerciseUuid: elem.uuid }
+            })
+            res.render('user/create-routine', { exercises, user_id })
         })
         .catch(err => next(err))
 })

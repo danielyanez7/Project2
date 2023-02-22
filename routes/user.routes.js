@@ -4,6 +4,8 @@ const User = require('../models/User.model')
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
+saltRounds = 10
+
 // const ApiService = require('../services/exercises.service')
 // const ExercisesApi = new ApiService()
 
@@ -33,13 +35,20 @@ router.get('/edit-profile/:current_Id', isLoggedIn, (req, res, next) => {
 
 router.post('/edit-profile', isLoggedIn, uploaderMiddleware.single('imageUrl'), (req, res, next) => {
 
-    const { username, age, height, weight, injuries, current_Id } = req.body
+    const { username, email, userPassword, age, height, weight, injuries, current_Id } = req.body
 
     const imageUrl = req.file?.path
 
-    User
-        .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
-        .then(user => res.redirect('/user/profile'))
+    // User
+    //     .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
+    //     .then(user => res.redirect('/user/profile'))
+    //     .catch(err => next(err))
+
+    bcrypt
+        .genSalt(saltRounds)
+        .then(salt => bcrypt.hash(userPassword, salt))
+        .then(passwordHash => User.findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl, password: passwordHash, email }))
+        .then(() => res.redirect('/'))
         .catch(err => next(err))
 })
 
