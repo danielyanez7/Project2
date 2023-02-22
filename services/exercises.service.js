@@ -9,7 +9,7 @@ class ApiService {
     }
 
     getAllExercises() {
-        return this.api.get('/exercise/?language=4')
+        return this.api.get('/exerciseinfo/?limit=1200')
     }
 
     getExerciseInfo() {
