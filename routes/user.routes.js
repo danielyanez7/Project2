@@ -39,11 +39,6 @@ router.post('/edit-profile', isLoggedIn, uploaderMiddleware.single('imageUrl'), 
 
     const imageUrl = req.file?.path
 
-    // User
-    //     .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
-    //     .then(user => res.redirect('/user/profile'))
-    //     .catch(err => next(err))
-
     bcrypt
         .genSalt(saltRounds)
         .then(salt => bcrypt.hash(userPassword, salt))
@@ -86,13 +81,29 @@ router.get('/routine-list/:current_Id', isLoggedIn, (req, res, next) => {
 })
 
 
+
+router.get('/request-personaltraining/:trainer_id', (req, res, next) => {
+    const { trainer_id } = req.params
+    res.render('user/request-personaltraining', { trainer_id })
+})
+
 router.post('/request-personaltraining/:trainer_id', (req, res, next) => {
 
     const { trainer_id } = req.params
-    const applications = req.session.currentUser?._id
+    const client_id = req.session.currentUser?._id
+    const selectedDays = {
+        days: [req.body.monday, req.body.tuesday, req.body.wednesday,
+        req.body.thursday, req.body.friday, req.body.saturday, req.body.sunday]
+    }
+    const workdays = selectedDays.days.filter(elem => elem !== undefined)
 
-    User
-        .findByIdAndUpdate(trainer_id, { $addToSet: { applications } })
+    const promises = [
+        User.findByIdAndUpdate(trainer_id, { $addToSet: { client_id } }),
+        User.findByIdAndUpdate(client_id, { $addToSet: { workdays } })
+    ]
+
+    Promise
+        .all(promises)
         .then(() => res.redirect('/'))
         .catch(err => next(err))
 })
