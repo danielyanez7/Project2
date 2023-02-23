@@ -4,6 +4,8 @@ const routineSchema = new Schema(
     {
         routinename: {
             type: String,
+            required: true,
+            trim: true
         },
 
         weekplan: [{
@@ -11,10 +13,10 @@ const routineSchema = new Schema(
             exercises: [String],
             time: String
         }],
-        owner: [{
+        owner: {
             type: Schema.Types.ObjectId,
             ref: 'User'
-        }],
+        },
     },
     {
         timestamps: true

@@ -20,42 +20,63 @@ router.post('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER'), (r
 
     Routine
         .create({ routinename, owner: user_id })
-        .then(routine => res.redirect(`/clients/create-routine/${user_id}/${routine.routinename}`))
+        .then(routine => res.redirect(`/clients/create-routine/${user_id}/${routine._id}`))
         .catch(err => next(err))
 })
 
 
-router.get('/create-routine/:user_id/:routimename', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.get('/create-routine/:user_id/:routine_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
 
-    const { user_id, routimename } = req.params
+    const { user_id, routine_id } = req.params
 
     const promises = [
         User.findById(user_id),
-        Routine.findOne({ name: routimename }),
+        Routine.findById(routine_id),
         exerciseapi.getAllExercises()
     ]
 
     Promise
         .all(promises)
         .then(result => {
+
             const user = result[0]
             const routine = result[1]
             const apiRawResult = result[2]
             const exercises = apiRawResult.data.results
 
+            const workdays = user.workdays.map(workdayname => {
+                return {
+                    name: workdayname,
+                    dailyRoutine: routine.weekplan.filter(rou => rou.day === workdayname)
+                }
+            })
+
             const infoExercises = exercises.map(elem => {
                 return { exerciseName: elem.name, exerciseUuid: elem.uuid }
             })
 
-            res.render('user/create-routine', { user, infoExercises, routine })
+            res.render('user/create-routine', { workdays, infoExercises, routine })
         })
         .catch(err => next(err))
 })
 
 
-// router.post('/create-routine', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
 
-// })
+    const { exercise } = req.body
+    const { routine_id, day } = req.params
+
+    Routine
+        .findById(routine_id)
+        .then(routine => {
+            routine.weekplan.push({ day, exercises: [exercise] })
+            return Routine.findByIdAndUpdate(routine_id, routine)
+        })
+        .then(() => res.redirect(`/`))
+        .catch(err => next(err))
+
+
+})
 
 
 router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {

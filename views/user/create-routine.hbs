@@ -1,43 +1,28 @@
-{{!-- <div class="title-color">
-    <div class="row justify-content-center">
-        {{#each user.workdays}}
-
-        <div class="col-md-10 mt-5">
-            <h1>{{this}}</h1>
-            <hr>
-            <form action="/user/edit-profile" method="POST" enctype="multipart/form-data">
-
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" value="{{username}}">
-                </div>
-
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-dark">Edit</button>
-                </div>
-
-            </form>
-        </div>
-        {{/each}}
-
-    </div>
-</div> --}}
-
-
-<div class="row row-cols-10">
+<div class="row row-cols-1 mt-5">
+    {{#each workdays}}
+    <p class="title-color mt-3">{{name}}</p>
     <div class="col mt-3">
         <div class="card h-100">
             <div class="card-body">
-                <form action="/clients/create-routine" method="post">
+                <form action="/clients/submit-exercise/{{../routine._id}}/{{name}}" method="post">
                     <label for="exercise-select">Selecciona un ejercicio:</label>
                     <select id="exercise-select" name="exercise">
-                        {{#each infoExercises}}
-                        <option value="{{exerciseUuid}}">{{exerciseName}}</option>
+                        {{#each ../infoExercises}}
+                        <option value="{{exerciseName}}">{{exerciseName}}</option>
                         {{/each}}
                     </select>
                     <button type="submit">Seleccionar</button>
                 </form>
+                <div>
+                    <h4>Ejercicios</h4>
+                    {{#each dailyRoutine}}
+                    {{#each this.exercises}}
+                    <h1>{{this}}</h1>
+                    {{/each}}
+                    {{/each}}
+                </div>
             </div>
         </div>
     </div>
+    {{/each}}
 </div>
