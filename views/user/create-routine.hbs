@@ -1,4 +1,51 @@
-<ul class="exercise-list">
+{{!-- <div class="title-color">
+    <div class="row justify-content-center">
+        {{#each user.workdays}}
+
+        <div class="col-md-10 mt-5">
+            <h1>{{this}}</h1>
+            <hr>
+            <form action="/user/edit-profile" method="POST" enctype="multipart/form-data">
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{username}}">
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-dark">Edit</button>
+                </div>
+
+            </form>
+        </div>
+        {{/each}}
+
+    </div>
+</div> --}}
+
+
+{{#each infoExercises}}
+<h1>{{exerciseUuid}}</h1>
+{{/each}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- <ul class="exercise-list">
     {{#each exercises}}
     <li>
         <div class="card">
@@ -8,4 +55,4 @@
         </div>
     </li>
     {{/each}}
-</ul>
+</ul> --}}

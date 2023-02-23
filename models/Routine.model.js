@@ -8,13 +8,7 @@ const routineSchema = new Schema(
 
         weekplan: [{
             day: String,
-            exercises: [{
-                exerciseName: String,
-                description: String,
-                category: String,
-                equipment: [String],
-                repetitions: String
-            }],
+            exercises: [String],
             time: String
         }],
         owner: [{

@@ -98,7 +98,7 @@ router.post('/request-personaltraining/:trainer_id', (req, res, next) => {
     const workdays = selectedDays.days.filter(elem => elem !== undefined)
 
     const promises = [
-        User.findByIdAndUpdate(trainer_id, { $addToSet: { client_id } }),
+        User.findByIdAndUpdate(trainer_id, { $addToSet: { applications: client_id } }),
         User.findByIdAndUpdate(client_id, { $addToSet: { workdays } })
     ]
 

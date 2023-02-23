@@ -34,10 +34,7 @@ const userSchema = new Schema(
       enum: ['CLIENT', 'TRAINER', 'ADMIN'],
       default: 'CLIENT'
     },
-    routines: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Routine'
-    }],
+    routines: [String],
     imageUrl: {
       type: String,
       default: "https://ih1.redbubble.net/image.2595320116.9420/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"

@@ -28,10 +28,10 @@
                         <a href="/events/create-event" class="btn btn-dark">Create New Event</a>
                     </div>
                     <ul class="list-unstyled mt-3">
-                        {{#each applications}}
+                        {{#each user.applications}}
                         <li class="d-flex justify-content-between">
                             {{username}}
-                            <form action="/clients/accept-client/{{user.id}}" method="POST">
+                            <form action="/clients/accept-client/{{id}}" method="POST">
                                 <button type="submit" class="btn btn-primary">Accept</button>
                             </form>
                         </li>

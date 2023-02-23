@@ -6,20 +6,50 @@ const exerciseapi = new ApiServices()
 
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
+router.get('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
+    const { user_id } = req.params
+    res.render('user/name-clientroutine', { user_id })
+})
+
+
+router.post('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+
+    const { user_id } = req.params
+    const { routinename } = req.body
+
+    Routine
+        .create({ routinename, owner: user_id })
+        .then(() => res.redirect(`/clients/create-routine/${user_id}`))
+        .catch(err => next(err))
+})
+
 
 router.get('/create-routine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
 
     const { user_id } = req.params
 
-    exerciseapi
-        .getAllExercises()
-        .then(({ data }) => {
-            const exercises = data.results.map(elem => {
+    const promises = [
+        User.findById(user_id),
+        exerciseapi.getAllExercises()
+    ]
+
+    Promise
+        .all(promises)
+        .then(result => {
+            const user = result[0]
+            const apiRawResult = result[1]
+            const exercises = apiRawResult.data.results
+
+            const infoExercises = exercises.map(elem => {
                 return { exerciseName: elem.name, exerciseUuid: elem.uuid }
             })
-            res.render('user/create-routine', { exercises, user_id })
+
+
+            res.render('user/create-routine', { user, infoExercises })
+
+
         })
-        .catch(err => next(err))
 })
 
 

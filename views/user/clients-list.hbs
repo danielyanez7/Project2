@@ -7,7 +7,7 @@
             <div class="card-body text-center">
                 <h5 class="card-title">{{username}}</h5>
                 <div class="d-grid gap-2 mt-3 mb-2">
-                    <a href="/clients/create-routine/{{id}}" class="btn btn-dark">Create Routine</a>
+                    <a href="/clients/name-clientroutine/{{id}}" class="btn btn-dark">Create Routine</a>
                     <a href="/user/routine-list/{{id}}" class="btn btn-dark">See routines</a>
                 </div>
             </div>
@@ -15,21 +15,3 @@
     </div>
     {{/each}}
 </div>
-
-
-
-
-
-
-
-
-
-{{!-- AQUI!!! :User_id--}}
-{{!-- ↓ --}}
-{{!-- <a href="/clients/create-routine/:user_id" class="btn btn-primary">Create Routine</a> --}}
-
-
-
-{{!-- AQUI!!! :Routine_id --}}
-{{!-- ↓ --}}
-{{!-- <a href="/clients/edit-routine/:routine_id" class="btn btn-primary">Edit Routine</a> --}}
