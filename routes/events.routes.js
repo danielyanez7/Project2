@@ -27,7 +27,11 @@ router.get('/event-list', isLoggedIn, (req, res, next) => {
         .find()
         .select({ eventname: 1, imageUrl: 1, description: 1, date: 1, participants: 1 })
         .sort({ eventname: 1 })
-        .then(events => res.render('events/event-list', { events }))
+        .then(events => res.render('events/event-list', {
+            events,
+            isTrainer: req.session.currentUser?.role === "TRAINER",
+            isAdmin: req.session.currentUser?.role === "ADMIN"
+        }))
         .catch(err => next(err))
 
 })
@@ -38,7 +42,7 @@ router.get('/edit-event/:event_id', isLoggedIn, (req, res, next) => {
 
     Event
         .findById(event_id)
-        .then(event => res.render('events/edit-event', event))
+        .then(event => res.render('events/edit-event', { event }))
         .catch(err => next(err))
 })
 

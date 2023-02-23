@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model')
-const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
+const { isLoggedIn } = require('../middlewares/route-guards')
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 saltRounds = 10
@@ -38,11 +38,6 @@ router.post('/edit-profile', isLoggedIn, uploaderMiddleware.single('imageUrl'), 
     const { username, email, userPassword, age, height, weight, injuries, current_Id } = req.body
 
     const imageUrl = req.file?.path
-
-    // User
-    //     .findByIdAndUpdate(current_Id, { username, age, height, weight, injuries, imageUrl })
-    //     .then(user => res.redirect('/user/profile'))
-    //     .catch(err => next(err))
 
     bcrypt
         .genSalt(saltRounds)
