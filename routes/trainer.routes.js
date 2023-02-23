@@ -51,4 +51,5 @@ router.post('/accept-client/:user_id', isLoggedIn, checkRole('TRAINER'), (req, r
         .catch(err => next(err))
 })
 
+
 module.exports = router
