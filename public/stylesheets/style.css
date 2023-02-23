@@ -24,7 +24,13 @@ input {
 
 
 .card-gray {
-  background-color: rgba(128, 128, 128, 0.5); 
+  background-color: rgba(128, 128, 128, 0.5);
   color: whitesmoke;
   border: none
+}
+
+.routine-name {
+  color: white;
+  font-weight: 600;
+  font-size: 4em;
 }

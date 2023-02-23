@@ -6,14 +6,14 @@ const exerciseapi = new ApiServices()
 
 const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
 
-router.get('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.get('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER', 'ADMIN'), (req, res, next) => {
 
     const { user_id } = req.params
     res.render('user/name-clientroutine', { user_id })
 })
 
 
-router.post('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.post('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER', 'ADMIN'), (req, res, next) => {
 
     const { user_id } = req.params
     const { routinename } = req.body
@@ -25,7 +25,7 @@ router.post('/name-clientroutine/:user_id', isLoggedIn, checkRole('TRAINER'), (r
 })
 
 
-router.get('/create-routine/:user_id/:routine_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.get('/create-routine/:user_id/:routine_id', isLoggedIn, checkRole('TRAINER', 'ADMIN'), (req, res, next) => {
 
     const { user_id, routine_id } = req.params
 
@@ -61,7 +61,7 @@ router.get('/create-routine/:user_id/:routine_id', isLoggedIn, checkRole('TRAINE
 })
 
 
-router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER', 'ADMIN'), (req, res, next) => {
 
     const { exercise, reps } = req.body
     const { routine_id, day } = req.params
@@ -69,6 +69,7 @@ router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'
     Routine
         .findById(routine_id)
         .then(routine => {
+<<<<<<< HEAD
             const existingDay = routine.weekplan.find(d => d.day === day)
             if (existingDay) {
                 const allExercise = reps + ' x ' + exercise
@@ -76,6 +77,17 @@ router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'
             } else {
                 routine.weekplan.push({ day, exercises: [exercise] })
             }
+=======
+
+            const existingDay = routine.weekplan.find(plan => plan.day === day)
+
+            if (existingDay) {
+                existingDay.exercises.push(exercise)
+            } else {
+                routine.weekplan.push({ day, exercises: [exercise] })
+            }
+
+>>>>>>> fc63fc3c9787f197e7917040a56f1629438a1ac9
             return Routine.findByIdAndUpdate(routine_id, routine)
         })
         .then(() => {
@@ -86,8 +98,7 @@ router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'
 })
 
 
-
-router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER', 'ADMIN'), (req, res, next) => {
 
     const { trainer_id } = req.params
 
@@ -99,7 +110,7 @@ router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) =>
 })
 
 
-router.post('/accept-client/:user_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
+router.post('/accept-client/:user_id', isLoggedIn, checkRole('TRAINER', 'ADMIN'), (req, res, next) => {
 
     const { user_id } = req.params
     const currentUser = req.session.currentUser?._id

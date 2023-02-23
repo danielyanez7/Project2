@@ -1,0 +1,18 @@
+<h1 class="routine-name mt-5 mb-5">Routine: {{routinename}}</h1>
+
+<div class="row row-cols-1">
+    {{#each weekplan}}
+    <div class="col m-2">
+        <div class="card h-100">
+            <div class="card-body">
+                <h4 class="card-title fw-semibold">{{this.day}}</h4>
+                <ul>
+                    {{#each this.exercises}}
+                    <li class="fw-semibold">{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>

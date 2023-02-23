@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model')
+const Routine = require('../models/Routine.model')
 const { isLoggedIn } = require('../middlewares/route-guards')
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
@@ -70,17 +71,25 @@ router.post('/delete/:current_Id', isLoggedIn, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.get('/routine-list/:current_Id', isLoggedIn, (req, res, next) => {
+router.get('/routine-list/:user_Id', isLoggedIn, (req, res, next) => {
 
-    const { current_Id } = req.params
+    const { user_Id } = req.params
 
-    User
-        .findById(current_Id)
-        .then(() => res.render('user/routine-list'))
+    Routine
+        .find({ owner: user_Id })
+        .then(routines => res.render('user/routine-list', { routines }))
         .catch(err => next(err))
 })
 
+router.get('/routine-details/:routine_id', isLoggedIn, (req, res, next) => {
 
+    const { routine_id } = req.params
+
+    Routine
+        .findById(routine_id)
+        .then(routine => res.render('user/routine-details', routine))
+        .catch(err => next(err))
+})
 
 router.get('/request-personaltraining/:trainer_id', (req, res, next) => {
     const { trainer_id } = req.params
