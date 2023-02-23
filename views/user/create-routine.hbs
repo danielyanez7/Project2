@@ -1,13 +1,11 @@
-<div class="row row-cols-10">
-
+<ul class="exercise-list">
     {{#each exercises}}
-    <div class="col mt-3">
-        <div class="card h-100">
+    <li>
+        <div class="card">
             <div class="card-body">
-                <p class="card-title">{{exerciseName}}</p>
+                <h5 class="card-title">{{exerciseName}}</h5>
             </div>
         </div>
-    </div>
+    </li>
     {{/each}}
-
-</div>
+</ul>

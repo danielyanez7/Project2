@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model')
-const { isLoggedIn, checkRole } = require('../middlewares/route-guards')
+const { isLoggedIn } = require('../middlewares/route-guards')
 const uploaderMiddleware = require('../middlewares/uploader.middleware')
 
 saltRounds = 10
