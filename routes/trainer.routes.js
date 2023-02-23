@@ -63,20 +63,28 @@ router.get('/create-routine/:user_id/:routine_id', isLoggedIn, checkRole('TRAINE
 
 router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
 
-    const { exercise } = req.body
+    const { exercise, reps } = req.body
     const { routine_id, day } = req.params
 
     Routine
         .findById(routine_id)
         .then(routine => {
-            routine.weekplan.push({ day, exercises: [exercise] })
+            const existingDay = routine.weekplan.find(d => d.day === day)
+            if (existingDay) {
+                const allExercise = reps + ' x ' + exercise
+                existingDay.exercises.push(allExercise)
+            } else {
+                routine.weekplan.push({ day, exercises: [exercise] })
+            }
             return Routine.findByIdAndUpdate(routine_id, routine)
         })
-        .then(() => res.redirect(`/`))
+        .then(() => {
+            const referer = req.headers.referer || '/'
+            res.redirect(referer)
+        })
         .catch(err => next(err))
-
-
 })
+
 
 
 router.get('/:trainer_id', isLoggedIn, checkRole('TRAINER'), (req, res, next) => {
@@ -101,6 +109,10 @@ router.post('/accept-client/:user_id', isLoggedIn, checkRole('TRAINER'), (req, r
         .then(() => res.redirect(`/clients/${currentUser}`))
         .catch(err => next(err))
 })
+
+
+
+
 
 
 module.exports = router
