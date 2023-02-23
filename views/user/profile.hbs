@@ -29,10 +29,10 @@
                     </div>
                     <ul class="list-unstyled mt-3">
                         {{#each user.applications}}
-                        <li class="d-flex justify-content-between">
-                            {{username}}
+                        <li class="d-flex justify-content-between mt-3">
+                            <p>{{username}} wants to receive training</p>
                             <form action="/clients/accept-client/{{id}}" method="POST">
-                                <button type="submit" class="btn btn-primary">Accept</button>
+                                <button type="submit" class="btn btn-dark">Accept</button>
                             </form>
                         </li>
                         {{/each}}

@@ -30,21 +30,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {{!-- <ul class="exercise-list">
     {{#each exercises}}
     <li>
@@ -56,3 +41,32 @@
     </li>
     {{/each}}
 </ul> --}}
+
+
+
+
+
+<div class="row" id="exercises-container">
+    <div class="row row-cols-10">
+        <div class="col mt-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <form action="/clients/create-routine" method="post">
+                        <label for="exercise-select">Selecciona un ejercicio:</label>
+                        <select id="exercise-select" name="exercise">
+                            {{#each exercises}}
+                            <option value="{{exerciseUuid}}">{{exerciseName}}</option>
+                            {{/each}}
+                        </select>
+                        <button type="submit">Seleccionar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="selected-exercises">Ejercicios seleccionados:</label>
+            <input id="selected-exercises" class="form-control" disabled>
+            <ul id="selected-exercises-list"></ul>
+        </div>
+    </div>
+</div>
