@@ -48,13 +48,14 @@ router.get('/edit-event/:event_id', isLoggedIn, (req, res, next) => {
 
 router.post('/edit-event/:event_id', isLoggedIn, uploaderMiddleware.single('imageUrl'), (req, res, next) => {
 
-    const { eventname, description, date, participants, event_id } = req.body
+    const { eventname, description, date, participants } = req.body
+    const { event_id } = req.params
 
     const imageUrl = req.file?.path
 
     Event
         .findByIdAndUpdate(event_id, { eventname, description, date, participants, imageUrl })
-        .then(() => res.redirect('/events/event-list'))
+        .then(() => res.redirect('/'))
         .catch(err => next(err))
 })
 
