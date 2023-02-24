@@ -37,7 +37,7 @@ const userSchema = new Schema(
     routines: [String],
     imageUrl: {
       type: String,
-      default: "https://ih1.redbubble.net/image.2595320116.9420/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
+      default: "https://qph.cf2.quoracdn.net/main-qimg-03a99309aab3f5536e1062649c2eff21-lq"
     },
     clients: [{
       type: Schema.Types.ObjectId,

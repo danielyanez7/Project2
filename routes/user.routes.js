@@ -1,6 +1,6 @@
 const express = require('express')
-const bcrypt = require('bcryptjs')
 const router = express.Router()
+const bcrypt = require('bcryptjs')
 const User = require('../models/User.model')
 const Routine = require('../models/Routine.model')
 const { isLoggedIn } = require('../middlewares/route-guards')
