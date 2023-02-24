@@ -69,7 +69,6 @@ router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'
     Routine
         .findById(routine_id)
         .then(routine => {
-<<<<<<< HEAD
             const existingDay = routine.weekplan.find(d => d.day === day)
             if (existingDay) {
                 const allExercise = reps + ' x ' + exercise
@@ -77,17 +76,6 @@ router.post('/submit-exercise/:routine_id/:day', isLoggedIn, checkRole('TRAINER'
             } else {
                 routine.weekplan.push({ day, exercises: [exercise] })
             }
-=======
-
-            const existingDay = routine.weekplan.find(plan => plan.day === day)
-
-            if (existingDay) {
-                existingDay.exercises.push(exercise)
-            } else {
-                routine.weekplan.push({ day, exercises: [exercise] })
-            }
-
->>>>>>> fc63fc3c9787f197e7917040a56f1629438a1ac9
             return Routine.findByIdAndUpdate(routine_id, routine)
         })
         .then(() => {
